@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+
+    <link rel="stylesheet" href="web2_chalkpad_perforemance.css">
+    <!-- <link rel="icon" href="https://media-exp1.licdn.com/dms/image/C560BAQEcOHNkcuvT7g/company-logo_200_200/0?e=2159024400&v=beta&t=zCIQzcy_IznzaHEHNZZ-fyM8mtkzGtrWiiBTsVdqJWg"> -->
+
+    <style>
+        table{
+            background-color:white;
+            height:650px;
+            width: 1500px;
+            color:black;
+            border-collapse:collapse;
+        }
+        td{
+            padding:10px;
+            border:1px solid black;
+            text-align:center;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div>
+    <header class="header">
+        <h1 style="display:block">
+            WELCOME TO CHALKPAD WE ARE HERE FOR YOUR ASSIST
+        </h1>
+    </header>
+
+    <nav>
+        <a href="web2.html">HOME</a> |
+        <a href="web2_chalkpad_perforemanced.html">PERFOREMANCE</a> |
+        <a href="web2_attendance.html">ATTENDANCE</a> 
+        <!-- <a href="web2_details.html">DETAILS</a> -->
+    </nav>
+</div>
+
+<div style="
+    display:flex;
+    justify-content:center;
+    width:1500px;
+    background-image:url(https://www.chitkara.edu.in/wp-content/themes/chitkara/images/landing-pages/glorious-future/chitkara-maingate.jpg);
+">
+
+    <div id="marks">
+
+        <div style="display:flex; height:700px; width:800px; justify-content:center; align-items:center;">
+            <div style="
+                background:rgba(0, 0, 0, 0.452);
+                padding:30px 40px;
+                border-radius:10px;
+                box-shadow:9px 9px 15px black;
+                text-align:center;
+                transform:translateY(-200px);
+            ">
+                <h3 style="font-size:28px; margin-bottom:20px;">
+                    ENTER YOUR ROLL NUMBER
+                </h3>
+
+                <input id="val" type="text"
+                       placeholder="Enter Roll Number"
+                       style="height:30px; width:260px; font-size:16px; text-align:center;">
+                <br><br>
+
+                <button onclick="marks()"
+                        style="height:30px; width:120px; font-size:16px; cursor:pointer;">
+                    LOGIN
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>     
+
+<script>
+function marks() {
+    let roll = document.getElementById("val").value;
+
+    if (roll === "2510990612") {
+        document.getElementById("marks").innerHTML = `
+        <table border="1">
+            <tr>
+                <td>SUBJECTS</td>
+                <td>MARKS</td>
+                <td>PERCENTAGE</td>
+                <td>CGPA</td>
+            </tr>
+            <tr><td>MCP/DECA</td><td>85</td><td>85%</td><td>8.5</td></tr>
+            <tr><td>PYTHON</td><td>90</td><td>90%</td><td>9.0</td></tr>
+            <tr><td>C PROGRAMMING</td><td>88</td><td>88%</td><td>8.8</td></tr>
+            <tr><td>MATHS</td><td>92</td><td>92%</td><td>9.2</td></tr>
+            <tr><td>FEE</td><td>80</td><td>80%</td><td>8.0</td></tr>
+            <tr><td>OS</td><td>86</td><td>86%</td><td>8.6</td></tr>
+            <tr><td>FCS</td><td>89</td><td>89%</td><td>8.9</td></tr>
+        </table>`;
+    }
+
+    else if (roll === "2510990639") {
+        document.getElementById("marks").innerHTML = `
+        <table border="1">
+            <tr>
+                <td>SUBJECTS</td>
+                <td>MARKS</td>
+                <td>PERCENTAGE</td>
+                <td>CGPA</td>
+            </tr>
+            <tr><td>MCP/DECA</td><td>78</td><td>78%</td><td>7.8</td></tr>
+            <tr><td>PYTHON</td><td>82</td><td>82%</td><td>8.2</td></tr>
+            <tr><td>C PROGRAMMING</td><td>75</td><td>75%</td><td>7.5</td></tr>
+            <tr><td>MATHS</td><td>88</td><td>88%</td><td>8.8</td></tr>
+            <tr><td>FEE</td><td>70</td><td>70%</td><td>7.0</td></tr>
+            <tr><td>OS</td><td>80</td><td>80%</td><td>8.0</td></tr>
+            <tr><td>FCS</td><td>84</td><td>84%</td><td>8.4</td></tr>
+        </table>`;
+    }
+
+    else if (roll === "2510990543") {
+        document.getElementById("marks").innerHTML = `
+        <table border="1">
+            <tr>
+                <td>SUBJECTS</td>
+                <td>MARKS</td>
+                <td>PERCENTAGE</td>
+                <td>CGPA</td>
+            </tr>
+            <tr><td>MCP/DECA</td><td>88</td><td>88%</td><td>8.8</td></tr>
+            <tr><td>PYTHON</td><td>91</td><td>91%</td><td>9.1</td></tr>
+            <tr><td>C PROGRAMMING</td><td>85</td><td>85%</td><td>8.5</td></tr>
+            <tr><td>MATHS</td><td>90</td><td>90%</td><td>9.0</td></tr>
+            <tr><td>FEE</td><td>82</td><td>82%</td><td>8.2</td></tr>
+            <tr><td>OS</td><td>87</td><td>87%</td><td>8.7</td></tr>
+            <tr><td>FCS</td><td>90</td><td>90%</td><td>9.0</td></tr>
+        </table>`;
+    }
+
+    else {
+        alert("Invalid Roll Number");
+    }
+}
+</script>
+
+</body>
+</html>

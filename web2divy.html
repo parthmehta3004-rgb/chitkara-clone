@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* OUTER CONTAINER */
+.outer{
+    width:100vw;
+    height:100vh;
+    position:relative;
+
+    background-image:url("https://img.jagranjosh.com/imported/images/E/Articles/Chitkara-University-Punjab-is-the-only-University-from-Punjab-to-make-place-in-THE-Impact-Rankings-2020-Body-Images.jpg");
+
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* DARK OVERLAY */
+.outer::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+}
+
+/* INNER CARD */
+.inner{
+    position:relative;
+    z-index:1;
+
+    width:30vw;
+    padding:40px;
+
+    background:rgba(0,0,0,0.64);
+
+    border:2px solid rgba(255,255,255,0.4);
+    border-radius:40px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:25px;
+
+    color:white;
+    font-family:'Inter',sans-serif;
+    font-size:30px;
+    font-weight:700;
+    text-align:center;
+
+    animation:floa 1.5s ease-in-out;
+}
+
+/* TOP LOGO */
+.logo{
+    width:120px;
+    height:auto;
+
+    transition:0.4s;
+
+    animation:f 3s ease-in-out infinite;
+}
+
+.logo:hover{
+    transform:scale(1.1);
+    filter:drop-shadow(0 0 25px red);
+}
+
+/* INPUTS + SELECT */
+.t{
+    background-color:rgba(255,255,255,0.1);
+
+    color:white;
+
+    width:25vw;
+    height:45px;
+
+    border-radius:20px;
+    border:2px solid rgba(255,255,255,0.6);
+
+    font-size:18px;
+    text-align:center;
+
+    outline:none;
+
+    transition:0.3s;
+
+    text-shadow:
+    0 0 44px white,
+    0 0 50px white,
+    0 0 80px white,
+    0 0 119px white;
+}
+
+.t::placeholder{
+    color:rgba(255,255,255,0.7);
+}
+
+.t:focus{
+    border-color:red;
+    box-shadow:0 0 15px red;
+}
+
+/* BUTTON */
+.x{
+    background:linear-gradient(135deg,red,black);
+
+    color:white;
+
+    width:25vw;
+    height:45px;
+
+    border:none;
+    border-radius:20px;
+
+    font-size:18px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.4s;
+}
+
+.x:hover{
+    transform:scale(1.08);
+}
+
+/* CHECKBOX */
+.robot{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:16px;
+
+    cursor:pointer;
+}
+
+.robot input{
+    display:none;
+}
+
+.custom-box{
+    width:22px;
+    height:22px;
+
+    border:2px solid white;
+    border-radius:6px;
+
+    position:relative;
+
+    transition:0.3s;
+}
+
+.robot input:checked + .custom-box{
+    background:linear-gradient(135deg,#00f5a0,#00d9f5);
+
+    box-shadow:0 0 10px #00f5a0;
+}
+
+.custom-box::after{
+    content:"✔";
+
+    position:absolute;
+
+    color:white;
+    font-size:16px;
+
+    left:3px;
+    top:-2px;
+
+    opacity:0;
+
+    transition:0.3s;
+}
+
+.robot input:checked + .custom-box::after{
+    opacity:1;
+}
+
+/* BOTTOM LOGOS */
+.logo-container{
+    margin-top:30px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    width:100%;
+}
+
+.bottom-logo{
+    width:40px;
+    height:auto;
+
+    opacity:0.8;
+
+    transition:0.4s ease;
+}
+
+.bottom-logo:hover{
+    transform:scale(1.15);
+
+    opacity:1;
+
+    filter:drop-shadow(0 0 12px red);
+}
+
+/* SELECT OPTIONS */
+select option{
+    background:black;
+    color:white;
+}
+
+/* ANIMATION */
+@keyframes floa{
+
+    from{
+        transform:translateY(150px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+@keyframes f{
+
+    0%{
+        transform:translateY(10px);
+    }
+
+    50%{
+        transform:translateY(0);
+    }
+
+    100%{
+        transform:translateY(10px);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    .inner{
+        width:90vw;
+    }
+
+    .t,
+    .x{
+        width:80vw;
+    }
+}
+
+</style>
+<link rel="icon" href="https://media-exp1.licdn.com/dms/image/C560BAQEcOHNkcuvT7g/company-logo_200_200/0?e=2159024400&v=beta&t=zCIQzcy_IznzaHEHNZZ-fyM8mtkzGtrWiiBTsVdqJWg" type="image/jpg" href="./image/favicon.jpg">
+
+</head>
+
+<body id ="body">
+
+<div class="outer">
+
+    <div class="inner">
+
+        <!-- TOP LOGO -->
+        <img 
+        src="https://styles.redditmedia.com/t5_39e2ia/styles/communityIcon_juhmqandd9t51.png?width=256&s=88cd40cb1357f52f57cdb3498ebda1c9e49be7f0"
+        alt="Logo"
+        class="logo">
+
+        <span>
+            Please Enter Your Login Details
+        </span>
+
+        <!-- INPUT -->
+        <input
+        type="number"
+        placeholder="Roll number"
+        class="t"
+        id="IV">
+
+        <!-- PASSWORD -->
+        <input
+        type="password"
+        placeholder="Password"
+        class="t"
+        id="T">
+
+        <!-- SELECT -->
+        <select class="t">
+
+            <option value="" disabled selected>
+                Select Session
+            </option>
+
+            <option>
+                2024 JULY-DECEMBER
+            </option>
+
+            <option>
+                2025 JANUARY-JULY
+            </option>
+
+            <option>
+                2025 AUGUST-DECEMBER
+            </option>
+
+            <option>
+                2026 JANUARY-JULY
+            </option>
+
+        </select>
+
+        <!-- BUTTON -->
+        <button class="x" onclick="e()">
+            SIGN IN
+        </button>
+
+        <!-- CHECKBOX -->
+        <label class="robot">
+
+            <input type="checkbox">
+
+            <span class="custom-box"></span>
+
+            <span>
+                I AM NOT A ROBOT
+            </span>
+
+        </label>
+
+        <!-- BOTTOM LOGOS -->
+        <div class="logo-container">
+
+            <img
+            src="https://styles.redditmedia.com/t5_39e2ia/styles/communityIcon_juhmqandd9t51.png?width=256&s=88cd40cb1357f52f57cdb3498ebda1c9e49be7f0"
+            class="bottom-logo">
+
+            <img
+            src="https://cuiet.codebrigade.in/images/code-brigade-logo-small.png"
+            class="bottom-logo">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function e(){
+
+    let a = Number(document.getElementById("IV").value);
+
+    let c = [
+        2510990612,
+        2510990639,
+        2510990543,
+        2510990617
+    ];
+
+    let f = [
+        "abc",
+        "def",
+        "tyr"
+    ];
+
+    if(
+        (a==c[0] ||
+        a==c[1] ||
+        a==c[2] ) && 
+        document.getElementById("T").value=='123'
+    ){
+        
+        window.location.href =
+        "web2.html";
+
+    }
+
+    else{
+
+        alert("Invalid Roll Number or passward. Please try again.");
+    }
+
+    console.log(a);
+
+    console.log(document.getElementById("T").value);
+}
+
+</script>
+
+</body>
+</html>

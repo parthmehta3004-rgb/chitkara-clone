@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chalkpad Attendance</title>
+
+    <link rel="icon" href="https://media-exp1.licdn.com/dms/image/C560BAQEcOHNkcuvT7g/company-logo_200_200/0?e=2159024400&v=beta&t=zCIQzcy_IznzaHEHNZZ-fyM8mtkzGtrWiiBTsVdqJWg">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-size: 18px;
+            background-image: url(https://dl.dropboxusercontent.com/s/xk4seob83ngnup7/Chitkara%20University%2C%20Punjab%2Cimg.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header {
+            height: 70px;
+            background-color: #f50202;
+            display: flex;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: black;
+            font-size: 28px;
+            margin-left: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: rgb(226, 150, 69);
+            height: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 115px);
+        }
+
+        .login {
+            width: 360px;
+            padding: 30px;
+            background-color: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .login img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .login h2 {
+            margin-bottom: 20px;
+        }
+
+        .login input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .captcha-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .captcha {
+            width: 140px;
+            height: 35px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            letter-spacing: 3px;
+            background-color: #f2f2f2;
+        }
+
+        .refresh {
+            cursor: pointer;
+            color: blue;
+        }
+
+        .login button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f50202;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        
+        .attendance {
+            display: none;
+            background-color: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            margin-top: 100px;
+            /* height:635px; */
+            /* width: 1500px; */
+            transform:translateY(10px)
+        }
+
+        table {
+            border-collapse: collapse;
+            height:635px;
+            width: 1500px;
+        }
+
+        th, td {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f50202;
+            color: white;
+        }
+    </style>
+</head>
+
+<body onload="generateCaptcha()">
+
+<header class="header">
+    <h1>WELCOME TO CHALKPAD ATTENDANCE</h1>
+</header>
+
+<nav>
+    <a href="web2.html">HOME</a> |
+    <a href="web2chalkpad.html">CHALKPAD</a> |
+    <a href="web2_chalkpad_perforemanced.html">PERFORMANCE</a> |
+    <a href="web2_attendance.html">ATTENDANCE</a>
+</nav>
+
+<div class="box">
+
+    <!-- LOGIN BOX -->
+    <div class="login" id="loginBox">
+        <img src="https://cache.careers360.mobi/media/presets/60X60/colleges/social-media/logo/Logo_of_Chitkara_University_Patiala__Logo.png">
+
+        <h2>Student Login</h2>
+
+        <input type="text" id="roll" placeholder="Enter Roll Number">
+        <input type="password" id="password" placeholder="Enter Password">
+
+        <p>Please enter the captcha</p>
+
+        <div class="captcha-box">
+            <div class="captcha" id="captcha"></div>
+            <span class="refresh" onclick="generateCaptcha()">↻ Refresh</span>
+        </div>
+
+        <input type="text" id="captchaInput" placeholder="Enter Captcha">
+
+        <button onclick="validateCaptcha()">LOGIN</button>
+    </div>
+
+    <!-- ATTENDANCE TABLE -->
+    <div class="attendance" id="attendanceBox">
+        <h2>Attendance Report</h2>
+        <br>
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Total Classes</th>
+                <th>Attended</th>
+                <th>Percentage</th>
+            </tr>
+            <tr>
+                <td>Web Technology</td>
+                <td>40</td>
+                <td>36</td>
+                <td>90%</td>
+            </tr>
+            <tr>
+                <td>Operating System</td>
+                <td>38</td>
+                <td>32</td>
+                <td>84%</td>
+            </tr>
+            <tr>
+                <td>Fee</td>
+                <td>42</td>
+                <td>39</td>
+                <td>93%</td>
+            </tr>
+            <tr>
+                <td>Python</td>
+                <td>50</td>
+                <td>40</td>
+                <td>80%</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+    let captchaText = "";
+
+    function generateCaptcha() {
+        let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        captchaText = "";
+        for (let i = 0; i < 6; i++) {
+            captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById("captcha").innerText = captchaText;
+    }
+
+    function validateCaptcha() {
+        let userCaptcha = document.getElementById("captchaInput").value;
+
+        if (userCaptcha.toLowerCase() === captchaText.toLowerCase()) {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("attendanceBox").style.display = "block";
+        } else {
+            alert("Incorrect Captcha ❌");
+            generateCaptcha();
+        }
+    }
+</script>
+
+</body>
+</html>

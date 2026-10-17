@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>UHostel – Chitkara University</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  .nav{
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+    color: black;
+
+    background-color:#f0f2f7;
+}
+.a{
+  background-size: auto;
+  font-size: 20px;
+
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f2f7;
+  --white:#fff;
+  --red:#c62828;
+  --red-light:#fce4ec;
+  --red-dark:#8d1414;
+  --nav-h:66px;
+  --sidebar-w:260px;
+  --shadow:0 2px 12px rgba(0,0,0,.07);
+  --shadow-md:0 4px 24px rgba(0,0,0,.10);
+  --radius:14px;
+  --card-p:18px;
+}
+html,body{height:100%;font-family:'DM Sans',sans-serif;font-size:14px;color:#222;background:#dde0e8;-webkit-tap-highlight-color:transparent}
+.app-shell{display:flex;min-height:100vh;background:var(--bg)}
+.sidebar{width:var(--sidebar-w);background:linear-gradient(170deg,#1a1a2e 0%,#2b1a1a 100%);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:200;box-shadow:4px 0 24px rgba(0,0,0,.22);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px}
+.sidebar-logo-icon{width:42px;height:42px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px 7px;flex-shrink:0}
+.sidebar-logo-icon span{display:block;height:3px;background:#fff;border-radius:2px}
+.sidebar-logo-icon span:nth-child(1){width:26px}
+.sidebar-logo-icon span:nth-child(2){width:20px}
+.sidebar-logo-icon span:nth-child(3){width:14px}
+.sidebar-logo-text .t1{font-size:17px;font-weight:900;color:#fff;letter-spacing:2px;font-family:'Nunito',sans-serif}
+.sidebar-logo-text .t2{font-size:9px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:3px}
+.sidebar-user{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sidebar-avatar{width:38px;height:38px;border-radius:50%;background:#e8f5e9;overflow:hidden;border:2px solid rgba(255,255,255,.18);flex-shrink:0}
+.sidebar-avatar svg{width:100%;height:100%}
+.sidebar-user-info .sn{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.sidebar-user-info .sr{font-size:10.5px;color:rgba(255,255,255,.45);font-weight:500}
+.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto}
+.sidebar-nav::-webkit-scrollbar{display:none}
+.snav-section{padding:8px 18px 4px;font-size:9.5px;font-weight:800;color:rgba(255,255,255,.25);letter-spacing:2.5px;text-transform:uppercase}
+.snav-item{display:flex;align-items:center;gap:10px;padding:11px 18px;cursor:pointer;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;position:relative;transition:color .2s,background .2s;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.snav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.snav-item.active{color:#fff;background:rgba(198,40,40,.3)}
+.snav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);border-radius:0 3px 3px 0}
+.snav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sidebar-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.25);font-weight:600}
+.main{flex:1;display:flex;flex-direction:column;min-height:100vh;margin-left:0;transition:margin-left .3s cubic-bezier(.4,0,.2,1)}
+.topbar{background:#fff;border-bottom:1px solid #eaeaea;height:60px;display:flex;align-items:center;padding:0 24px;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.topbar-menu{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;color:#555;display:none}
+.topbar-menu:hover{background:#f5f5f5}
+.topbar-title{font-size:17px;font-weight:800;color:#1a1a2e;font-family:'Nunito',sans-serif;flex:1}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.tba{background:none;border:none;cursor:pointer;padding:8px;border-radius:10px;color:#666;font-size:18px;transition:background .2s}
+.tba:hover{background:#f0f0f0}
+.tba-notif{position:relative}
+.tba-badge{position:absolute;top:4px;right:4px;width:14px;height:14px;background:var(--red);color:#fff;font-size:9px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 0 calc(var(--nav-h) + 10px);scroll-behavior:smooth}
+.content-area::-webkit-scrollbar{width:6px}
+.content-area::-webkit-scrollbar-track{background:transparent}
+.content-area::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
+.content-area::-webkit-scrollbar-thumb:hover{background:#bbb}
+.screen{display:none;animation:fadein .25s ease}
+.screen.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.bnav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -4px 20px rgba(0,0,0,.1);display:flex;align-items:center;z-index:100}
+.nitem{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:8px 4px 6px;color:#999;font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:700;transition:color .2s,transform .2s;position:relative}
+.nitem:active{transform:scale(.93)}
+.nitem.active{color:var(--red)}
+.nicon{width:22px;height:22px;stroke:currentColor;fill:none}
+.nbadge{position:absolute;top:6px;right:calc(50% - 20px);background:var(--red);color:#fff;font-size:9px;font-weight:800;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.page-header{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.page-title{font-size:22px;font-weight:900;color:#1a1a2e;font-family:'Nunito',sans-serif}
+.page-subtitle{font-size:13px;color:#888;font-weight:500;margin-top:2px}
+.uni-hdr{background:#fff;padding:12px 16px;border-bottom:1px solid #eee;display:flex;justify-content:center}
+.uni-inner{display:flex;align-items:center;gap:10px}
+.uni-txt{display:flex;flex-direction:column;line-height:1.1}
+.uni-name{font-size:20px;font-weight:800;color:#111;letter-spacing:2px;font-family:'Nunito',sans-serif}
+.uni-sub{font-size:10px;font-weight:600;color:#555;letter-spacing:3px}
+.uni-icon{width:44px;height:44px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:7px 6px}
+.uni-icon span{display:block;height:3px;background:#fff;border-radius:2px}
+.uni-icon span:nth-child(1){width:28px}
+.uni-icon span:nth-child(2){width:22px}
+.uni-icon span:nth-child(3){width:16px}
+.pcard{margin:12px 14px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;overflow:hidden}
+.paccent{width:5px;background:var(--red);flex-shrink:0}
+.pinner{display:flex;align-items:center;padding:14px;gap:12px;flex:1}
+.avatar{width:50px;height:50px;border-radius:50%;overflow:hidden;border:2px solid #e0e0e0;flex-shrink:0}
+.avatar svg{width:100%;height:100%;display:block}
+.pinfo{flex:1}
+.pname{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.psub{font-size:11.5px;color:#666;font-weight:500;line-height:1.5}
+.rbtn{background:none;border:none;cursor:pointer;padding:6px;border-radius:50%;transition:background .2s}
+.rbtn:hover{background:var(--red-light)}
+.desk-pcard{background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 20px rgba(198,40,40,.3);color:#fff;position:relative;overflow:hidden}
+.desk-pcard::before{content:'';position:absolute;right:-30px;top:-30px;width:130px;height:130px;background:rgba(255,255,255,.07);border-radius:50%}
+.desk-pcard::after{content:'';position:absolute;right:40px;bottom:-40px;width:100px;height:100px;background:rgba(255,255,255,.05);border-radius:50%}
+.desk-avatar{width:60px;height:60px;border-radius:50%;background:#fff;overflow:hidden;border:3px solid rgba(255,255,255,.4);flex-shrink:0;z-index:1}
+.desk-avatar svg{width:100%;height:100%}
+.desk-pinfo{z-index:1;flex:1}
+.desk-pinfo .dn{font-size:18px;font-weight:800;margin-bottom:4px;font-family:'Nunito',sans-serif}
+.desk-pinfo .ds{font-size:12px;opacity:.8;line-height:1.6}
+.desk-rbtn{background:rgba(255,255,255,.2);border:none;cursor:pointer;padding:8px;border-radius:50%;z-index:1;transition:background .2s}
+.desk-rbtn:hover{background:rgba(255,255,255,.35)}
+.mlist{padding:0 14px 10px;display:flex;flex-direction:column;gap:10px}
+.mcard{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;align-items:center;overflow:hidden;cursor:pointer;position:relative;transition:transform .15s,box-shadow .15s}
+.mcard:active{transform:scale(.98);box-shadow:0 5px 18px rgba(0,0,0,.13)}
+.maccent{width:5px;align-self:stretch;flex-shrink:0}
+.mbody{flex:1;padding:14px 12px}
+.mtitle{font-size:13.5px;font-weight:700;color:var(--red);margin-bottom:3px}
+.mdesc{font-size:11.5px;color:#777;font-weight:500;line-height:1.4}
+.marrow{padding:0 12px 0 4px;flex-shrink:0}
+@keyframes slideup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.mcard{animation:slideup .4s ease both}
+.desk-mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0}
+.desk-mcard{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px;border-top:3px solid transparent}
+.desk-mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-top-color:var(--accent-color,var(--red))}
+.desk-mcard:active{transform:scale(.98)}
+.desk-mcard-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.desk-mcard-title{font-size:14px;font-weight:800;color:#1a1a2e;font-family:'Nunito',sans-serif}
+.desk-mcard-desc{font-size:12px;color:#888;line-height:1.4}
+.spcard{margin:12px 14px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;overflow:hidden}
+.spaccent{width:5px;background:var(--red);flex-shrink:0}
+.spinner{display:flex;align-items:center;padding:12px 14px;gap:10px;flex:1}
+.savatar{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid #e0e0e0;flex-shrink:0}
+.savatar svg{width:100%;height:100%;display:block}
+.spinfo{flex:1}
+.spname{font-size:12.5px;font-weight:700}
+.sproll,.spsem{font-size:11px;color:#666}
+.shdr{display:flex;align-items:center;justify-content:space-between;padding:6px 14px 10px}
+.stitle{font-size:14px;font-weight:800;color:var(--red)}
+.abtn{border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
+.abtn:active{transform:scale(.96)}
+.red{background:var(--red);color:#fff}
+.yellow{background:#f9a825;color:#333}
+.tcard{margin:0 14px 12px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead tr{background:#f5f5f5;border-bottom:1px solid #eee}
+th{padding:10px 8px;font-weight:700;color:#444;text-align:left;white-space:nowrap}
+td{padding:11px 8px;border-bottom:1px solid #f0f0f0;vertical-align:top;color:#333;line-height:1.4}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.cyan{background:#00bcd4;color:#fff}
+.green{background:#43a047;color:#fff}
+.orange{background:#fb8c00;color:#fff}
+.pending-badge{background:#f9a825;color:#333}
+.ok{color:#2e7d32;font-weight:800;font-size:11px}
+.sub{font-size:10px;color:#888}
+.ttotal{display:flex;justify-content:space-between;padding:10px 12px;background:#f9f9f9;font-weight:700;font-size:13px;border-top:1px solid #eee}
+.icard{margin:0 14px 12px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.irow{display:flex;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #f3f3f3;font-size:12.5px}
+.irow:last-child{border-bottom:none}
+.ilbl{color:#777;font-weight:600}
+.ival{color:#222;font-weight:700}
+.fcard{margin:0 14px 14px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.fgrp{margin-bottom:14px}
+.flbl{display:block;font-size:12px;font-weight:700;color:#555;margin-bottom:6px}
+.finp,.fsel,.ftxt{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;color:#222;background:#fafafa;outline:none;transition:border-color .2s}
+.finp:focus,.fsel:focus,.ftxt:focus{border-color:#1e88e5;background:#fff}
+.ftxt{resize:vertical;min-height:80px}
+.fval{font-size:13px;font-weight:600;color:#333;padding:9px 12px;background:#f5f5f5;border-radius:8px}
+.wc{font-size:11px;color:#999;text-align:right;margin-top:4px}
+.rgrp{display:flex;flex-wrap:wrap;gap:14px}
+.rlbl{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:#333;cursor:pointer}
+.rlbl input{accent-color:#1e88e5;width:16px;height:16px}
+.sbtn{width:100%;border:none;background:var(--red);color:#fff;padding:12px;border-radius:10px;font-size:14px;font-weight:800;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 3px 10px rgba(198,40,40,.35);transition:transform .15s}
+.sbtn:active{transform:scale(.97)}
+.sbtn.grn{background:#43a047;box-shadow:0 3px 10px rgba(67,160,71,.35)}
+.dbar{background:#2d2d2d;color:#fff;font-size:13px;font-weight:700;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:10px 10px 0 0;margin:0 0 0}
+.ibanner{margin:0 14px 14px;background:var(--red);color:#fff;border-radius:var(--radius);padding:12px 14px;font-size:12px;font-weight:600;line-height:1.5}
+.ilist{list-style:none}
+.ilist li{padding:11px 0 11px 22px;border-bottom:1px solid #f0f0f0;font-size:12.5px;color:#444;line-height:1.5;position:relative}
+.ilist li::before{content:'•';color:var(--red);font-size:18px;position:absolute;left:6px;top:9px}
+.ilist li:last-child{border-bottom:none}
+.ripple{position:absolute;border-radius:50%;background:rgba(198,40,40,.15);transform:scale(0);animation:rpl .5s linear;pointer-events:none}
+@keyframes rpl{to{transform:scale(4);opacity:0}}
+.toast{position:fixed;bottom:calc(var(--nav-h) + 12px);left:50%;transform:translateX(-50%) translateY(20px);background:#323232;color:#fff;padding:10px 20px;border-radius:20px;font-size:12.5px;font-weight:600;font-family:'DM Sans',sans-serif;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:190;backdrop-filter:blur(2px)}
+.overlay.open{display:block}
+
+/* ===== MODAL SYSTEM ===== */
+.modal-bg{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:500;align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(3px);
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:#fff;border-radius:16px;width:100%;max-width:480px;
+  max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2);
+  animation:modalIn .25s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{
+  background:linear-gradient(135deg,var(--red),var(--red-dark));
+  color:#fff;padding:16px 18px;border-radius:16px 16px 0 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-header h3{font-size:15px;font-weight:800;font-family:'Nunito',sans-serif}
+.modal-close{background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.35)}
+.modal-body{padding:18px}
+.modal-body .fgrp{margin-bottom:12px}
+
+/* No-data row */
+.no-data{text-align:center;color:#aaa;padding:18px;font-size:12px}
+
+/* ===== COMPLAINT HISTORY PANEL ===== */
+.comp-hist-panel{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:14px;margin:0 14px 14px;
+}
+.comp-hist-panel .stitle{font-size:13px;font-weight:800;color:var(--red);display:block;margin-bottom:10px}
+
+@media(max-width:767px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .topbar{display:flex}
+  .topbar-menu{display:flex}
+  .bnav{display:flex}
+  .content-area{padding-bottom:calc(var(--nav-h) + 10px)}
+  .toast{bottom:calc(var(--nav-h) + 12px)}
+  .desk-pcard,.desk-mgrid{display:none}
+  .uni-hdr,.pcard,.mlist{display:block}
+  .page-header{display:none}
+  .desk-section{display:none}
+  .mob-section{display:block}
+}
+@media(min-width:768px) and (max-width:1023px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .topbar{display:flex}
+  .topbar-menu{display:flex}
+  .bnav{display:none}
+  .content-area{padding-bottom:20px}
+  .toast{bottom:20px}
+  .uni-hdr,.pcard,.mlist{display:none}
+  .page-header{display:flex}
+  .desk-pcard,.desk-mgrid{display:grid}
+  .desk-pcard{display:flex}
+  .desk-mgrid{grid-template-columns:repeat(2,1fr)}
+  .desk-section{display:block}
+  .mob-section{display:none}
+  .desk-content{padding:20px}
+}
+@media(min-width:1024px){
+  .sidebar{transform:translateX(0)}
+  .main{margin-left:var(--sidebar-w)}
+  .topbar{display:flex}
+  .topbar-menu{display:none}
+  .bnav{display:none}
+  .content-area{padding-bottom:20px}
+  .toast{bottom:20px}
+  .uni-hdr,.pcard,.mlist{display:none}
+  .page-header{display:flex}
+  .desk-pcard,.desk-mgrid{display:grid}
+  .desk-pcard{display:flex}
+  .desk-section{display:block}
+  .mob-section{display:none}
+  .desk-content{padding:24px}
+}
+@media(min-width:768px){
+  .desk-content{padding:20px 24px}
+  .desk-section .spcard,.desk-section .icard,.desk-section .fcard,.desk-section .tcard,.desk-section .ibanner{margin-left:0;margin-right:0}
+  .desk-section .shdr{padding-left:0;padding-right:0}
+  .desk-section .tcard{margin-bottom:16px}
+  .desk-section .icard{margin-bottom:16px}
+  .desk-section .fcard{margin-bottom:16px}
+  .desk-section .ibanner{margin-bottom:16px}
+  .desk-2col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .desk-spcard{background:linear-gradient(135deg,#f5f5f5 0%,#fff 100%);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);margin-bottom:16px;border-left:4px solid var(--red)}
+  .desk-spcard .savatar{width:46px;height:46px}
+  .desk-spcard .spname{font-size:14px}
+  table{font-size:13px}
+  th,td{padding:12px 14px}
+  .irow{font-size:13px}
+  .finp,.fsel,.ftxt{font-size:14px}
+}
+@media(min-width:1280px){
+  :root{--sidebar-w:280px}
+  .desk-mgrid{grid-template-columns:repeat(3,1fr)}
+  .desk-content{padding:28px 32px}
+}
+@media(min-width:1600px){
+  .desk-mgrid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+<link rel="icon" href="https://media-exp1.licdn.com/dms/image/C560BAQEcOHNkcuvT7g/company-logo_200_200/0?e=2159024400&v=beta&t=zCIQzcy_IznzaHEHNZZ-fyM8mtkzGtrWiiBTsVdqJWg" type="image/jpg" href="./image/favicon.jpg">
+
+</head>
+<body>
+      <nav class="nav">
+        <a class="a" style="color:black; background-color:#f0f2f7;" href="web2.html" target="_blank">HOME</a> |
+        <a class="a" style="color:black; background-color:#f0f2f7;" href="web2chalkpad.html" target="_blank">CHALKPAD</a> |
+        <a class="a" style="color:black; background-color:#f0f2f7;" href="uhostalhitesh.html" target="_blank">UHOSTAL</a> |
+        <a class="a" style="color:black; background-color:#f0f2f7;" href="https://www.chitkara.edu.in/campus-life/" target="_blank">CAMPUS LIFE</a> |
+        <a class="a" style="color:black; background-color:#f0f2f7;" href="https://www.chitkara.edu.in/contact-us/" target="_blank">CONTACT US</a>
+    </nav>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ===== GATE PASS MODAL ===== -->
+<div class="modal-bg" id="gpModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Apply Gate Pass</h3>
+      <button class="modal-close" onclick="closeModal('gpModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fgrp">
+        <label class="flbl">Leave Type</label>
+        <select class="fsel" id="gpLeaveType">
+          <option value="">-- Select Leave Type --</option>
+          <option value="NIGHT OUT">Night Out</option>
+          <option value="LOCAL">Local (Day Visit)</option>
+          <option value="HOME">Home Leave</option>
+          <option value="MEDICAL">Medical Leave</option>
+        </select>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Leave From (Date &amp; Time)</label>
+        <input type="datetime-local" class="finp" id="gpFrom"/>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Leave To (Date &amp; Time)</label>
+        <input type="datetime-local" class="finp" id="gpTo"/>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Destination / Reason</label>
+        <textarea class="ftxt" style="min-height:70px" id="gpReason" placeholder="Enter destination or reason for leave..."></textarea>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Contact Number During Leave</label>
+        <input type="tel" class="finp" id="gpContact" placeholder="Enter contact number"/>
+      </div>
+      <button class="sbtn" onclick="submitGatepass()">Submit Gate Pass Request</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOD REQUEST MODAL ===== -->
+<div class="modal-bg" id="foodModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Apply Food Request</h3>
+      <button class="modal-close" onclick="closeModal('foodModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fgrp">
+        <label class="flbl">Apply Date</label>
+        <input type="date" class="finp" id="foodDate"/>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Meal Type</label>
+        <div class="rgrp">
+          <label class="rlbl"><input type="radio" name="foodMeal" value="Breakfast" checked/> Breakfast</label>
+          <label class="rlbl"><input type="radio" name="foodMeal" value="Lunch"/> Lunch</label>
+          <label class="rlbl"><input type="radio" name="foodMeal" value="Dinner"/> Dinner</label>
+        </div>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Reason</label>
+        <textarea class="ftxt" style="min-height:70px" id="foodReason" placeholder="Enter reason for food request..."></textarea>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Special Instructions (Optional)</label>
+        <input type="text" class="finp" id="foodSpecial" placeholder="e.g. No onion, Jain food, etc."/>
+      </div>
+      <button class="sbtn grn" onclick="submitFood()">Submit Food Request</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMPLAINT MODAL ===== -->
+<div class="modal-bg" id="compModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Submit Complaint</h3>
+      <button class="modal-close" onclick="closeModal('compModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fgrp">
+        <label class="flbl">Complaint Category</label>
+        <select class="fsel" id="compCat">
+          <option value="">-- Choose Complaint Type --</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Cleanliness">Cleanliness</option>
+          <option value="Electrical Issue">Electrical Issue</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Internet Issue">Internet Issue</option>
+          <option value="Noise Complaint">Noise Complaint</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Complaint Details</label>
+        <textarea class="ftxt" id="compText" placeholder="Describe your complaint in detail..." oninput="wc(this,'compWc',100)"></textarea>
+        <div class="wc" id="compWc">0/100 words</div>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">Location / Room Reference</label>
+        <input type="text" class="finp" id="compLoc" placeholder="e.g. Room 512, 5th Floor, Common Bathroom"/>
+      </div>
+      <button class="sbtn" onclick="submitComplaint()">Submit Complaint</button>
+    </div>
+  </div>
+</div>
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><span></span><span></span><span></span></div>
+      <div class="sidebar-logo-text">
+        <div class="t1">CHITKARA</div>
+        <div class="t2">UNIVERSITY</div>
+      </div>
+    </div>
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">
+        <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg>
+      </div>
+      <div class="sidebar-user-info">
+        <div class="sn">STUDENT NAME</div>
+        <div class="sr">ROLL NUMBER · COURSE</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="snav-section">Main</div>
+      <button class="snav-item active" data-screen="home" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#c62828"></span> Dashboard</button>
+      <button class="snav-item" data-screen="gatepass" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#4caf50"></span> Gate Pass</button>
+      <button class="snav-item" data-screen="payment" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#43a047"></span> Payment Receipt</button>
+      <button class="snav-item" data-screen="fines" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#fb8c00"></span> Non-Disciplinary Action</button>
+      <button class="snav-item" data-screen="room" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#1e88e5"></span> Room Allotment</button>
+      <div class="snav-section">Requests</div>
+      <button class="snav-item" data-screen="complaint" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#8e24aa"></span> Complaint</button>
+      <button class="snav-item" data-screen="food" onclick="sidebarGo(this)"><span class="snav-dot" style="background:#00897b"></span> Food Request</button>
+    </nav>
+    <div class="sidebar-footer">UHostel v2.1 · chitkara.edu.in</div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+    <div class="topbar">
+      <button class="topbar-menu" onclick="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="tba tba-notif" onclick="toast('3 new notifications!')">🔔<div class="tba-badge">3</div></button>
+        <button class="tba" onclick="doRefresh(this)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-area" id="scrollContent">
+
+      <!-- HOME -->
+      <div class="screen active" id="screen-home">
+        <div class="uni-hdr"><div class="uni-inner"><div class="uni-txt"><span class="uni-name">CHITKARA</span><span class="uni-sub">UNIVERSITY</span></div><div class="uni-icon"><span></span><span></span><span></span></div></div></div>
+        <div class="pcard"><div class="paccent"></div><div class="pinner"><div class="avatar"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="#e8f5e9"/><circle cx="22" cy="17" r="8" fill="#66bb6a"/><ellipse cx="22" cy="35" rx="13" ry="8" fill="#66bb6a"/></svg></div><div class="pinfo"><div class="pname">Hi, <strong>STUDENT NAME</strong></div><div class="psub">FATHER NAME</div><div class="psub">ROLL NUMBER</div><div class="psub">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+        <div class="mlist">
+          <div class="mcard" style="animation-delay:.04s" onclick="go('gatepass',this,event)"><div class="maccent" style="background:#4caf50"></div><div class="mbody"><div class="mtitle">Gate Pass</div><div class="mdesc">Gate Pass for Students Leave, In &amp; Out Campus Request</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.07s" onclick="go('payment',this,event)"><div class="maccent" style="background:#43a047"></div><div class="mbody"><div class="mtitle">Payment Receipt</div><div class="mdesc">Payment Transaction Receipt</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.10s" onclick="go('fines',this,event)"><div class="maccent" style="background:#fb8c00"></div><div class="mbody"><div class="mtitle">Non-Disciplinary Action</div><div class="mdesc">Extra Dues for Non-Disciplinary Action</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.13s" onclick="go('room',this,event)"><div class="maccent" style="background:#1e88e5"></div><div class="mbody"><div class="mtitle">New Semester Allotment (Room)</div><div class="mdesc">Room &amp; Hostel Allotment for New Semester</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.16s" onclick="go('complaint',this,event)"><div class="maccent" style="background:#8e24aa"></div><div class="mbody"><div class="mtitle">Complaint Category</div><div class="mdesc">Submit your Complaint / Grievance Request</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.19s" onclick="go('food',this,event)"><div class="maccent" style="background:#00897b"></div><div class="mbody"><div class="mtitle">Food Request</div><div class="mdesc">Apply for Breakfast, Lunch or Dinner</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.22s" onclick="go('checkout',this,event)"><div class="maccent" style="background:#e53935"></div><div class="mbody"><div class="mtitle">Checkout Instructions</div><div class="mdesc">Hostel Checkout Rules &amp; Procedure</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.25s" onclick="go('parent',this,event)"><div class="maccent" style="background:#00acc1"></div><div class="mbody"><div class="mtitle">Parent Details</div><div class="mdesc">Update &amp; Manage Parent / Guardian Information</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="mcard" style="animation-delay:.28s" onclick="go('password',this,event)"><div class="maccent" style="background:#546e7a"></div><div class="mbody"><div class="mtitle">Change Password</div><div class="mdesc">Update your Login Password</div></div><div class="marrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+        <div class="desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Welcome back, STUDENT NAME 👋</div><div class="page-subtitle">ROLL NUMBER · COURSE · Armstrong Hostel, Room 512</div></div><button class="abtn red" onclick="doRefresh(this)">↻ Refresh</button></div>
+          <div class="desk-pcard" style="margin-bottom:24px"><div class="desk-avatar"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="#e8f5e9"/><circle cx="22" cy="17" r="8" fill="#66bb6a"/><ellipse cx="22" cy="35" rx="13" ry="8" fill="#66bb6a"/></svg></div><div class="desk-pinfo"><div class="dn">STUDENT NAME</div><div class="ds">Father: FATHER NAME &nbsp;|&nbsp; Room 512, 5th Floor &nbsp;|&nbsp; Session: 2025–2026</div></div><button class="desk-rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div>
+          <div class="desk-mgrid">
+            <div class="desk-mcard" style="--accent-color:#4caf50" onclick="go('gatepass',this,event)"><div class="desk-mcard-icon" style="background:#e8f5e9">🚪</div><div class="desk-mcard-title">Gate Pass</div><div class="desk-mcard-desc">Gate Pass for Students Leave, In &amp; Out Campus Request</div></div>
+            <div class="desk-mcard" style="--accent-color:#43a047" onclick="go('payment',this,event)"><div class="desk-mcard-icon" style="background:#e8f5e9">💳</div><div class="desk-mcard-title">Payment Receipt</div><div class="desk-mcard-desc">Payment Transaction Receipt</div></div>
+            <div class="desk-mcard" style="--accent-color:#fb8c00" onclick="go('fines',this,event)"><div class="desk-mcard-icon" style="background:#fff3e0">⚠️</div><div class="desk-mcard-title">Non-Disciplinary Action</div><div class="desk-mcard-desc">Extra Dues for Non-Disciplinary Action</div></div>
+            <div class="desk-mcard" style="--accent-color:#1e88e5" onclick="go('room',this,event)"><div class="desk-mcard-icon" style="background:#e3f2fd">🏠</div><div class="desk-mcard-title">Room Allotment</div><div class="desk-mcard-desc">Room &amp; Hostel Allotment for New Semester</div></div>
+            <div class="desk-mcard" style="--accent-color:#8e24aa" onclick="go('complaint',this,event)"><div class="desk-mcard-icon" style="background:#f3e5f5">📋</div><div class="desk-mcard-title">Complaint Category</div><div class="desk-mcard-desc">Submit your Complaint / Grievance Request</div></div>
+            <div class="desk-mcard" style="--accent-color:#00897b" onclick="go('food',this,event)"><div class="desk-mcard-icon" style="background:#e0f2f1">🍽️</div><div class="desk-mcard-title">Food Request</div><div class="desk-mcard-desc">Apply for Breakfast, Lunch or Dinner</div></div>
+            <div class="desk-mcard" style="--accent-color:#e53935" onclick="go('checkout',this,event)"><div class="desk-mcard-icon" style="background:#ffebee">🏁</div><div class="desk-mcard-title">Checkout Instructions</div><div class="desk-mcard-desc">Hostel Checkout Rules &amp; Procedure</div></div>
+            <div class="desk-mcard" style="--accent-color:#00acc1" onclick="go('parent',this,event)"><div class="desk-mcard-icon" style="background:#e0f7fa">👨‍👩‍👧</div><div class="desk-mcard-title">Parent Details</div><div class="desk-mcard-desc">Update &amp; Manage Parent / Guardian Information</div></div>
+            <div class="desk-mcard" style="--accent-color:#546e7a" onclick="go('password',this,event)"><div class="desk-mcard-icon" style="background:#eceff1">🔒</div><div class="desk-mcard-title">Change Password</div><div class="desk-mcard-desc">Update your Login Password</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GATEPASS -->
+      <div class="screen" id="screen-gatepass">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+          <div class="shdr"><span class="stitle">Gatepass History</span><button class="abtn red" onclick="openModal('gpModal')">Apply Gatepass</button></div>
+          <div class="tcard"><table><thead><tr><th>#</th><th>Leave Type</th><th>Status</th><th>Leave From / To</th></tr></thead>
+          <tbody id="gpTableMob">
+            <tr><td>1</td><td><span class="badge cyan">NIGHT OUT</span></td><td><div class="ok">APPROVED</div><div class="sub">HOSTEL-</div></td><td>09-MAY-2026 (5:00AM)<br/>11-MAY-2026 (4:00PM)</td></tr>
+            <tr><td>2</td><td><span class="badge cyan">NIGHT OUT</span></td><td><div class="ok">APPROVED</div><div class="sub">HOSTEL-</div></td><td>18-APR-2026 (5:00AM)<br/>20-APR-2026 (4:00PM)</td></tr>
+            <tr><td>3</td><td><span class="badge cyan">NIGHT OUT</span></td><td><div class="ok">APPROVED</div><div class="sub">HOSTEL-</div></td><td>28-MAR-2026 (5:00AM)<br/>30-MAR-2026 (4:00PM)</td></tr>
+          </tbody></table></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Gate Pass</div><div class="page-subtitle">Manage your leave requests and gatepass history</div></div><button class="abtn red" onclick="openModal('gpModal')">+ Apply Gatepass</button></div>
+          <div class="desk-spcard"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER &nbsp;·&nbsp; COURSE</div></div></div>
+          <div class="tcard"><table><thead><tr><th>#</th><th>Leave Type</th><th>Status</th><th>Leave From</th><th>Leave To</th><th>Reason</th></tr></thead>
+          <tbody id="gpTableDesk">
+            <tr><td>1</td><td><span class="badge cyan">NIGHT OUT</span></td><td><span class="badge green">APPROVED</span></td><td>09-MAY-2026 5:00AM</td><td>11-MAY-2026 4:00PM</td><td>Home visit</td></tr>
+            <tr><td>2</td><td><span class="badge cyan">NIGHT OUT</span></td><td><span class="badge green">APPROVED</span></td><td>18-APR-2026 5:00AM</td><td>20-APR-2026 4:00PM</td><td>Home visit</td></tr>
+            <tr><td>3</td><td><span class="badge cyan">NIGHT OUT</span></td><td><span class="badge green">APPROVED</span></td><td>28-MAR-2026 5:00AM</td><td>30-MAR-2026 4:00PM</td><td>Home visit</td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="screen" id="screen-payment">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+          <div class="shdr"><span class="stitle">Payment Receipt</span></div>
+          <div class="tcard"><table><thead><tr><th>Receipt No.</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead><tbody><tr><td>FN11872<br/><small style="color:#e65100">4089314768</small></td><td>₹50</td><td>09-MAY-2026</td><td><span class="badge green">SUCCESS</span></td></tr><tr><td>FN11643<br/><small style="color:#e65100">3912847561</small></td><td>₹200</td><td>15-APR-2026</td><td><span class="badge green">SUCCESS</span></td></tr><tr><td>FN11201<br/><small style="color:#e65100">3781234560</small></td><td>₹150</td><td>01-MAR-2026</td><td><span class="badge green">SUCCESS</span></td></tr></tbody></table><div class="ttotal"><span>Total:</span><span>₹400</span></div></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Payment Receipt</div><div class="page-subtitle">View all your hostel fee payment transactions</div></div></div>
+          <div class="desk-spcard"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER &nbsp;·&nbsp; COURSE</div></div></div>
+          <div class="tcard"><table><thead><tr><th>Receipt No.</th><th>Transaction ID</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead><tbody><tr><td>FN11872</td><td style="color:#e65100">4089314768</td><td>₹50</td><td>09-MAY-2026</td><td><span class="badge green">SUCCESS</span></td></tr><tr><td>FN11643</td><td style="color:#e65100">3912847561</td><td>₹200</td><td>15-APR-2026</td><td><span class="badge green">SUCCESS</span></td></tr><tr><td>FN11201</td><td style="color:#e65100">3781234560</td><td>₹150</td><td>01-MAR-2026</td><td><span class="badge green">SUCCESS</span></td></tr></tbody></table><div class="ttotal"><span>Total:</span><span>₹400</span></div></div>
+        </div>
+      </div>
+
+      <!-- FINES -->
+      <div class="screen" id="screen-fines">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+          <div class="shdr"><span class="stitle">Fine Dues</span></div>
+          <div class="tcard"><table><thead><tr><th>#</th><th>Date</th><th>Fine</th><th>Reason</th></tr></thead><tbody><tr><td colspan="4" class="no-data">Data Not Found</td></tr></tbody></table></div>
+          <div class="shdr" style="margin-top:8px"><span class="stitle">Fine Paid</span></div>
+          <div class="tcard"><table><thead><tr><th>Receipt No.</th><th>Paid Amount</th><th>Action</th></tr></thead><tbody><tr><td>FN11872<br/><span class="badge orange" style="font-size:10px">4089314768</span></td><td>50</td><td><span class="badge green">SUCCESS</span></td></tr></tbody></table><div class="ttotal"><span>Total:</span><span>50</span></div></div>
+          <div class="ibanner">If payment is confirmed by gateway, kindly wait 24 hours for balance to reflect.</div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Non-Disciplinary Action</div><div class="page-subtitle">Extra dues and disciplinary fine records</div></div></div>
+          <div class="desk-2col">
+            <div><div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:10px">Fine Dues</div><div class="tcard" style="margin:0 0 16px"><table><thead><tr><th>#</th><th>Date</th><th>Fine</th><th>Reason</th></tr></thead><tbody><tr><td colspan="4" class="no-data">Data Not Found</td></tr></tbody></table></div></div>
+            <div><div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:10px">Fine Paid</div><div class="tcard" style="margin:0 0 16px"><table><thead><tr><th>Receipt No.</th><th>Paid Amount</th><th>Status</th></tr></thead><tbody><tr><td>FN11872<br/><span class="badge orange" style="font-size:10px">4089314768</span></td><td>₹50</td><td><span class="badge green">SUCCESS</span></td></tr></tbody></table><div class="ttotal"><span>Total:</span><span>₹50</span></div></div><div class="ibanner" style="margin:0">If payment is confirmed by gateway, kindly wait 24 hours for balance to reflect.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROOM -->
+      <div class="screen" id="screen-room">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div></div>
+          <div class="shdr"><span class="stitle">Room Allotment</span></div>
+          <div class="icard"><div class="irow"><span class="ilbl">Hostel</span><span class="ival">ARMSTRONG (BOYS)</span></div><div class="irow"><span class="ilbl">Room No.</span><span class="ival">512</span></div><div class="irow"><span class="ilbl">Floor</span><span class="ival">5th Floor</span></div><div class="irow"><span class="ilbl">Bed No.</span><span class="ival">A</span></div><div class="irow"><span class="ilbl">Allotment Date</span><span class="ival">01-JAN-2026</span></div><div class="irow"><span class="ilbl">Session</span><span class="ival">2025-2026</span></div></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Room Allotment</div><div class="page-subtitle">Your current semester room &amp; hostel details</div></div></div>
+          <div class="desk-2col">
+            <div class="icard" style="margin:0"><div class="irow"><span class="ilbl">Hostel</span><span class="ival">ARMSTRONG (BOYS)</span></div><div class="irow"><span class="ilbl">Room No.</span><span class="ival">512</span></div><div class="irow"><span class="ilbl">Floor</span><span class="ival">5th Floor</span></div><div class="irow"><span class="ilbl">Bed No.</span><span class="ival">A</span></div><div class="irow"><span class="ilbl">Allotment Date</span><span class="ival">01-JAN-2026</span></div><div class="irow"><span class="ilbl">Session</span><span class="ival">2025-2026</span></div></div>
+            <div style="background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:8px;color:#aaa;font-size:13px;font-weight:600"><div style="font-size:48px">🏠</div><div>Armstrong Hostel</div><div style="font-size:12px">Room 512 · 5th Floor · Bed A</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLAINT -->
+      <div class="screen" id="screen-complaint">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+          <div class="shdr"><span class="stitle">Complaint Request</span><button class="abtn red" onclick="openModal('compModal')">New Complaint</button></div>
+          <!-- Complaint History Mobile -->
+          <div style="margin:0 14px 12px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden">
+            <div style="padding:10px 14px;font-size:12px;font-weight:800;color:var(--red);border-bottom:1px solid #eee">Recent Complaints</div>
+            <table><thead><tr><th>#</th><th>Category</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="compTableMob"><tr><td colspan="4" class="no-data">No complaints filed yet.</td></tr></tbody></table>
+          </div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Complaint</div><div class="page-subtitle">Submit a grievance or complaint request</div></div><button class="abtn red" onclick="openModal('compModal')">+ New Complaint</button></div>
+          <div class="desk-2col">
+            <div style="background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">
+              <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:12px">Recent Complaints</div>
+              <table style="width:100%"><thead><tr><th>#</th><th>Category</th><th>Status</th><th>Date</th><th>Details</th></tr></thead>
+              <tbody id="compTableDesk"><tr><td colspan="5" class="no-data">No complaints filed yet.</td></tr></tbody></table>
+            </div>
+            <div style="background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#aaa;font-size:13px;min-height:180px">
+              <div style="font-size:40px">📋</div>
+              <div style="font-weight:700">Submit a new complaint</div>
+              <div style="font-size:12px;text-align:center">Use the "New Complaint" button above to raise a grievance. We respond within 24 hours.</div>
+              <button class="abtn red" style="margin-top:6px" onclick="openModal('compModal')">Raise Complaint</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOD -->
+      <div class="screen" id="screen-food">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div><button class="rbtn" onclick="doRefresh(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div></div>
+          <div class="shdr"><span class="stitle">Food Request</span><button class="abtn grn" onclick="openModal('foodModal')">Apply Request</button></div>
+          <!-- Food History Mobile -->
+          <div style="margin:0 14px 12px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden">
+            <div style="padding:10px 14px;font-size:12px;font-weight:800;color:#00897b;border-bottom:1px solid #eee">Food Request History</div>
+            <table><thead><tr><th>#</th><th>Date</th><th>Meal</th><th>Status</th></tr></thead>
+            <tbody id="foodTableMob"><tr><td colspan="4" class="no-data">No past requests found.</td></tr></tbody></table>
+          </div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Food Request</div><div class="page-subtitle">Apply for special meals – Breakfast, Lunch or Dinner</div></div><button class="abtn" style="background:#00897b;color:#fff" onclick="openModal('foodModal')">+ Apply Food Request</button></div>
+          <div class="desk-2col">
+            <div style="background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">
+              <div style="font-size:14px;font-weight:800;color:#00897b;margin-bottom:12px">Food Request History</div>
+              <table style="width:100%"><thead><tr><th>#</th><th>Date</th><th>Meal</th><th>Status</th><th>Reason</th></tr></thead>
+              <tbody id="foodTableDesk"><tr><td colspan="5" class="no-data">No past requests found.</td></tr></tbody></table>
+            </div>
+            <div style="background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#aaa;font-size:13px;min-height:180px">
+              <div style="font-size:40px">🍽️</div>
+              <div style="font-weight:700">Apply for a meal</div>
+              <div style="font-size:12px;text-align:center">Request Breakfast, Lunch, or Dinner. Apply before meal time for timely delivery.</div>
+              <button class="abtn" style="background:#00897b;color:#fff;margin-top:6px" onclick="openModal('foodModal')">Apply Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKOUT -->
+      <div class="screen" id="screen-checkout">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div></div>
+          <div class="shdr"><span class="stitle">Checkout Instructions</span></div>
+          <div class="fcard"><ul class="ilist"><li>Clear all dues before checkout from the hostel.</li><li>Return room keys to the hostel office on checkout day.</li><li>Ensure room is clean and no damage to hostel property.</li><li>Collect your security deposit receipt from accounts section.</li><li>Submit a No-Dues certificate from the hostel warden.</li><li>Carry your original ID card during checkout.</li><li>Checkout timing: 9 AM – 5 PM only (working days).</li></ul></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Checkout Instructions</div><div class="page-subtitle">Follow these steps before vacating the hostel</div></div></div>
+          <div class="desk-2col">
+            <div class="fcard" style="margin:0"><ul class="ilist"><li>Clear all dues before checkout from the hostel.</li><li>Return room keys to the hostel office on checkout day.</li><li>Ensure room is clean and no damage to hostel property.</li><li>Collect your security deposit receipt from accounts section.</li></ul></div>
+            <div class="fcard" style="margin:0"><ul class="ilist"><li>Submit a No-Dues certificate from the hostel warden.</li><li>Carry your original ID card during checkout.</li><li>Checkout timing: 9 AM – 5 PM only (working days).</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARENT -->
+      <div class="screen" id="screen-parent">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div></div>
+          <div class="shdr"><span class="stitle">Parent Details</span></div>
+          <div class="fcard"><div class="fgrp"><label class="flbl">Father's Name</label><input type="text" class="finp" value="RAJESH SHARMA"/></div><div class="fgrp"><label class="flbl">Father's Mobile</label><input type="tel" class="finp" value="9876543210"/></div><div class="fgrp"><label class="flbl">Mother's Name</label><input type="text" class="finp" value="SUNITA SHARMA"/></div><div class="fgrp"><label class="flbl">Mother's Mobile</label><input type="tel" class="finp" value="9876543211"/></div><div class="fgrp"><label class="flbl">Home Address</label><textarea class="ftxt" style="height:70px">H.No 45, Sector 12, Chandigarh – 160012</textarea></div><button class="sbtn" onclick="toast('Parent details updated successfully!')">Update</button></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Parent Details</div><div class="page-subtitle">Manage parent and guardian contact information</div></div></div>
+          <div class="desk-2col">
+            <div class="fcard" style="margin:0"><div class="fgrp"><label class="flbl">Father's Name</label><input type="text" class="finp" value="RAJESH SHARMA"/></div><div class="fgrp"><label class="flbl">Father's Mobile</label><input type="tel" class="finp" value="9876543210"/></div><div class="fgrp"><label class="flbl">Mother's Name</label><input type="text" class="finp" value="SUNITA SHARMA"/></div><div class="fgrp"><label class="flbl">Mother's Mobile</label><input type="tel" class="finp" value="9876543211"/></div></div>
+            <div class="fcard" style="margin:0"><div class="fgrp"><label class="flbl">Home Address</label><textarea class="ftxt" style="height:100px">H.No 45, Sector 12, Chandigarh – 160012</textarea></div><button class="sbtn" onclick="toast('Parent details updated successfully!')">Update Details</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="screen" id="screen-password">
+        <div class="mob-section">
+          <div class="spcard"><div class="spaccent"></div><div class="spinner"><div class="savatar"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#e8f5e9"/><circle cx="18" cy="13" r="6" fill="#66bb6a"/><ellipse cx="18" cy="28" rx="10" ry="6" fill="#66bb6a"/></svg></div><div class="spinfo"><div class="spname">FATHER NAME</div><div class="sproll">ROLL NUMBER</div><div class="spsem">COURSE</div></div></div>
+          <div class="shdr"><span class="stitle">Change Password</span></div>
+          <div class="fcard"><div class="dbar" style="margin:-16px -16px 14px"><span>Password Settings</span><span>🔒</span></div><div class="fgrp"><label class="flbl">Old Password</label><input type="password" class="finp" placeholder="Enter old password"/></div><div class="fgrp"><label class="flbl">New Password</label><input type="password" class="finp" placeholder="Enter new password"/></div><div class="fgrp"><label class="flbl">Confirm Password</label><input type="password" class="finp" placeholder="Confirm new password"/></div><button class="sbtn" onclick="toast('Password changed successfully!')">Change Password</button></div>
+        </div>
+        <div class="desk-section desk-content">
+          <div class="page-header" style="margin-bottom:20px"><div><div class="page-title">Change Password</div><div class="page-subtitle">Update your hostel portal login credentials</div></div></div>
+          <div style="max-width:480px"><div class="fcard" style="margin:0"><div class="dbar" style="margin:-16px -16px 14px"><span>Password Settings</span><span>🔒</span></div><div class="fgrp"><label class="flbl">Old Password</label><input type="password" class="finp" placeholder="Enter old password"/></div><div class="fgrp"><label class="flbl">New Password</label><input type="password" class="finp" placeholder="Enter new password"/></div><div class="fgrp"><label class="flbl">Confirm Password</label><input type="password" class="finp" placeholder="Confirm new password"/></div><button class="sbtn" onclick="toast('Password changed successfully!')">Change Password</button></div></div>
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+
+    <!-- BOTTOM NAV -->
+    <nav class="bnav">
+      <button class="nitem active" data-nav="home" onclick="navGo(this)"><svg class="nicon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button>
+      <button class="nitem" data-nav="gatepass" onclick="navGo(this)"><svg class="nicon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span>Gatepass</span></button>
+      <button class="nitem" data-nav="password" onclick="navGo(this)"><svg class="nicon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Password</span></button>
+      <button class="nitem" data-nav="home" onclick="navGo(this)"><svg class="nicon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="nbadge">3</div><span>Notif</span></button>
+    </nav>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+// ---- State ----
+var gpData = [
+  {type:'NIGHT OUT', from:'09-MAY-2026 5:00AM', to:'11-MAY-2026 4:00PM', reason:'Home visit', status:'APPROVED'},
+  {type:'NIGHT OUT', from:'18-APR-2026 5:00AM', to:'20-APR-2026 4:00PM', reason:'Home visit', status:'APPROVED'},
+  {type:'NIGHT OUT', from:'28-MAR-2026 5:00AM', to:'30-MAR-2026 4:00PM', reason:'Home visit', status:'APPROVED'}
+];
+var foodData = [];
+var compData = [];
+
+// ---- Screen nav ----
+var hist = ['home'];
+var titles = {home:'Dashboard',gatepass:'Gate Pass',payment:'Payment Receipt',fines:'Non-Disciplinary Action',room:'Room Allotment',complaint:'Complaint',food:'Food Request',checkout:'Checkout Instructions',parent:'Parent Details',password:'Change Password'};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  var el=document.getElementById('screen-'+id);
+  if(!el) return;
+  el.classList.add('active');
+  document.getElementById('scrollContent').scrollTop=0;
+  document.getElementById('topbarTitle').textContent=titles[id]||'UHostel';
+  document.querySelectorAll('.snav-item').forEach(function(n){n.classList.toggle('active',n.dataset.screen===id)});
+  var navMap={home:'home',gatepass:'gatepass',password:'password'};
+  var active=navMap[id]||'home';
+  document.querySelectorAll('.nitem').forEach(function(n){n.classList.toggle('active',n.dataset.nav===active)});
+}
+function go(id,el,e){if(e)ripple(el,e);setTimeout(function(){hist.push(id);showScreen(id);if(window.innerWidth<768)closeSidebar()},100)}
+function navGo(btn){var id=btn.dataset.nav;hist=['home'];if(id!=='home')hist.push(id);showScreen(id)}
+function sidebarGo(btn){var id=btn.dataset.screen;hist=['home'];if(id!=='home')hist.push(id);showScreen(id);if(window.innerWidth<1024)closeSidebar()}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+function ripple(el,e){var r=document.createElement('span');r.className='ripple';var rect=el.getBoundingClientRect();var sz=Math.max(rect.width,rect.height);r.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-rect.left-sz/2)+'px;top:'+(e.clientY-rect.top-sz/2)+'px';el.appendChild(r);r.addEventListener('animationend',function(){r.remove()})}
+var _tt;
+function toast(msg){var el=document.getElementById('toastEl');el.textContent=msg;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){el.classList.remove('show')},2400)}
+function wc(ta,id,max){var w=ta.value.trim().split(/\s+/).filter(function(x){return x});var el=document.getElementById(id);if(el)el.textContent=w.length+'/'+max+' words'}
+function doRefresh(btn){var svg=btn.querySelector('svg');if(!svg){toast('Data refreshed!');return}svg.style.transition='transform .5s ease';svg.style.transform='rotate(360deg)';setTimeout(function(){svg.style.transform='';svg.style.transition=''},520);toast('Data refreshed!')}
+
+// ---- Modal ----
+function openModal(id){
+  // Set today's date for food modal
+  if(id==='foodModal'){
+    var today=new Date();
+    var yyyy=today.getFullYear();
+    var mm=String(today.getMonth()+1).padStart(2,'0');
+    var dd=String(today.getDate()).padStart(2,'0');
+    document.getElementById('foodDate').value=yyyy+'-'+mm+'-'+dd;
+  }
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+// Close on bg click
+document.querySelectorAll('.modal-bg').forEach(function(bg){
+  bg.addEventListener('click',function(e){if(e.target===bg)bg.classList.remove('open')});
+});
+
+// ---- Format datetime ----
+function fmtDT(val){
+  if(!val) return '—';
+  var d=new Date(val);
+  var months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  var h=d.getHours(), m=d.getMinutes(), ampm=h>=12?'PM':'AM';
+  h=h%12||12; m=String(m).padStart(2,'0');
+  return String(d.getDate()).padStart(2,'0')+'-'+months[d.getMonth()]+'-'+d.getFullYear()+' '+h+':'+m+ampm;
+}
+function fmtDate(val){
+  if(!val) return '—';
+  var d=new Date(val+'T00:00:00');
+  var months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  return String(d.getDate()).padStart(2,'0')+'-'+months[d.getMonth()]+'-'+d.getFullYear();
+}
+
+// ---- GATE PASS SUBMIT ----
+function renderGP(){
+  var mob=document.getElementById('gpTableMob');
+  var desk=document.getElementById('gpTableDesk');
+  if(!mob||!desk) return;
+  mob.innerHTML='';desk.innerHTML='';
+  gpData.forEach(function(r,i){
+    var statusHtml = r.status==='APPROVED'
+      ? '<span class="badge green">APPROVED</span>'
+      : '<span class="badge pending-badge">PENDING</span>';
+    mob.innerHTML+='<tr><td>'+(i+1)+'</td><td><span class="badge cyan">'+r.type+'</span></td><td>'+statusHtml+'</td><td>'+r.from+'<br/>'+r.to+'</td></tr>';
+    desk.innerHTML+='<tr><td>'+(i+1)+'</td><td><span class="badge cyan">'+r.type+'</span></td><td>'+statusHtml+'</td><td>'+r.from+'</td><td>'+r.to+'</td><td>'+(r.reason||'—')+'</td></tr>';
+  });
+}
+function submitGatepass(){
+  var type=document.getElementById('gpLeaveType').value;
+  var from=document.getElementById('gpFrom').value;
+  var to=document.getElementById('gpTo').value;
+  var reason=document.getElementById('gpReason').value.trim();
+  var contact=document.getElementById('gpContact').value.trim();
+  if(!type){toast('Please select Leave Type'); return}
+  if(!from){toast('Please select Leave From date/time'); return}
+  if(!to){toast('Please select Leave To date/time'); return}
+  if(new Date(to)<=new Date(from)){toast('Leave To must be after Leave From'); return}
+  if(!reason){toast('Please enter destination/reason'); return}
+  gpData.unshift({type:type,from:fmtDT(from),to:fmtDT(to),reason:reason,status:'PENDING'});
+  renderGP();
+  // Reset form
+  document.getElementById('gpLeaveType').value='';
+  document.getElementById('gpFrom').value='';
+  document.getElementById('gpTo').value='';
+  document.getElementById('gpReason').value='';
+  document.getElementById('gpContact').value='';
+  closeModal('gpModal');
+  toast('Gate Pass request submitted! Status: Pending Approval');
+}
+
+// ---- FOOD REQUEST SUBMIT ----
+function renderFood(){
+  var mob=document.getElementById('foodTableMob');
+  var desk=document.getElementById('foodTableDesk');
+  if(!mob||!desk) return;
+  if(foodData.length===0){
+    mob.innerHTML='<tr><td colspan="4" class="no-data">No past requests found.</td></tr>';
+    desk.innerHTML='<tr><td colspan="5" class="no-data">No past requests found.</td></tr>';
+    return;
+  }
+  mob.innerHTML=''; desk.innerHTML='';
+  foodData.forEach(function(r,i){
+    var st='<span class="badge pending-badge">PENDING</span>';
+    mob.innerHTML+='<tr><td>'+(i+1)+'</td><td>'+r.date+'</td><td>'+r.meal+'</td><td>'+st+'</td></tr>';
+    desk.innerHTML+='<tr><td>'+(i+1)+'</td><td>'+r.date+'</td><td>'+r.meal+'</td><td>'+st+'</td><td>'+(r.reason||'—')+'</td></tr>';
+  });
+}
+function submitFood(){
+  var date=document.getElementById('foodDate').value;
+  var meal=document.querySelector('input[name="foodMeal"]:checked');
+  var reason=document.getElementById('foodReason').value.trim();
+  if(!date){toast('Please select date'); return}
+  if(!meal){toast('Please select meal type'); return}
+  if(!reason){toast('Please enter a reason'); return}
+  foodData.unshift({date:fmtDate(date),meal:meal.value,reason:reason});
+  renderFood();
+  document.getElementById('foodDate').value='';
+  document.getElementById('foodReason').value='';
+  closeModal('foodModal');
+  toast('Food request submitted for '+meal.value+'!');
+}
+
+// ---- COMPLAINT SUBMIT ----
+function renderComp(){
+  var mob=document.getElementById('compTableMob');
+  var desk=document.getElementById('compTableDesk');
+  if(!mob||!desk) return;
+  if(compData.length===0){
+    mob.innerHTML='<tr><td colspan="4" class="no-data">No complaints filed yet.</td></tr>';
+    desk.innerHTML='<tr><td colspan="5" class="no-data">No complaints filed yet.</td></tr>';
+    return;
+  }
+  mob.innerHTML=''; desk.innerHTML='';
+  var today=new Date();
+  var months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  var dateStr=String(today.getDate()).padStart(2,'0')+'-'+months[today.getMonth()]+'-'+today.getFullYear();
+  compData.forEach(function(r,i){
+    var st='<span class="badge pending-badge">OPEN</span>';
+    mob.innerHTML+='<tr><td>'+(i+1)+'</td><td>'+r.cat+'</td><td>'+st+'</td><td>'+dateStr+'</td></tr>';
+    desk.innerHTML+='<tr><td>'+(i+1)+'</td><td>'+r.cat+'</td><td>'+st+'</td><td>'+dateStr+'</td><td>'+(r.text.length>30?r.text.substring(0,30)+'...':r.text)+'</td></tr>';
+  });
+}
+function submitComplaint(){
+  var cat=document.getElementById('compCat').value;
+  var text=document.getElementById('compText').value.trim();
+  var loc=document.getElementById('compLoc').value.trim();
+  if(!cat){toast('Please select complaint category'); return}
+  if(!text||text.length<10){toast('Please describe your complaint (min 10 characters)'); return}
+  compData.unshift({cat:cat,text:text,loc:loc});
+  renderComp();
+  document.getElementById('compCat').value='';
+  document.getElementById('compText').value='';
+  document.getElementById('compLoc').value='';
+  document.getElementById('compWc').textContent='0/100 words';
+  closeModal('compModal');
+  toast('Complaint submitted! Reference #COMP-'+String(compData.length).padStart(3,'0'));
+}
+
+// Badge pulse
+setInterval(function(){var b=document.querySelector('.nbadge');if(!b)return;b.style.transition='transform .2s';b.style.transform='scale(1.4)';setTimeout(function(){b.style.transform='scale(1)'},220)},4000);
+</script>
+</body>
+</html>
